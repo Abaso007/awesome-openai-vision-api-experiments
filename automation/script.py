@@ -61,7 +61,7 @@ def format_entry(entry: Series) -> str:
     colab_badge = COLAB_BADGE_PATTERN.format(
         colab_url) if colab_url else ""
     complementary_materials = " ".join([code_badge, huggingface_badge, colab_badge])
-    return "| {} | {} | {} |".format(title, complementary_materials, authors)
+    return f"| {title} | {complementary_materials} | {authors} |"
 
 
 def load_table_entries(path: str) -> List[str]:
@@ -79,11 +79,7 @@ def load_table_entries(path: str) -> List[str]:
 
 
 def search_lines_with_token(lines: List[str], token: str) -> List[int]:
-    result = []
-    for line_index, line in enumerate(lines):
-        if token in line:
-            result.append(line_index)
-    return result
+    return [line_index for line_index, line in enumerate(lines) if token in line]
 
 
 def inject_markdown_table_into_readme(
